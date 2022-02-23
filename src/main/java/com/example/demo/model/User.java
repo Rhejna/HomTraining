@@ -35,7 +35,7 @@ public class User implements Serializable {
                     name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(
                     name = "role_id", referencedColumnName = "id"))
-    private Collection<Role> roles;
+    private Role roles;
 
     public Long getId() {
         return id != null ? id : 0;
