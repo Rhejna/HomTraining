@@ -21,7 +21,4 @@ public class Privilege implements Serializable {
     private Long id;
 
     private String name;
-
-    @ManyToMany(mappedBy = "privileges")
-    private Collection<Role> roles;
 }

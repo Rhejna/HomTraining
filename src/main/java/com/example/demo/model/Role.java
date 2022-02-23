@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Collection;
 
 @Entity
 @Table
@@ -22,4 +23,7 @@ public class Role implements Serializable {
     private Integer id;
 
     private String name;
+
+    @ManyToMany(mappedBy = "roles")
+    private Collection<Privilege> privileges;
 }
