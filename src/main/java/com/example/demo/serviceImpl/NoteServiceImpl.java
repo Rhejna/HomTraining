@@ -24,17 +24,13 @@ public class NoteServiceImpl implements NoteService {
         this.etudiantRepo = etudiantRepo;
     }
 
-    public NoteServiceImpl(NoteRepo noteRepo){
-        this.noteRepo = noteRepo;
-    }
-
 
     @Override
     public List<Note> allNotes() {
         return noteRepo.findAll();
     }
 
-    //liste des notes d'un cours spécifique
+    /***liste des notes d'un cours spécifique***/
     @Override
     public List<Note> getNotesCours(Long coursId){
         Cours cours = coursRepo.findById(coursId).get();
@@ -42,7 +38,7 @@ public class NoteServiceImpl implements NoteService {
 
     }
 
-    //liste des notes d'un étudiant spécifique
+    /***liste des notes d'un étudiant spécifique***/
     @Override
     public List<Note> getNotesEtudiant(Long etudiantId){
         Etudiant etudiant = etudiantRepo.findById(etudiantId).get();

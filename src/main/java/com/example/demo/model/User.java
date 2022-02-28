@@ -10,7 +10,7 @@ import java.time.LocalDate;
 import java.util.Collection;
 
 @Entity //for hibernate
-@Table
+@Table(name="users")
 @Data //crée des getters et setters
 @NoArgsConstructor // cree un constructeur par defaut
 @AllArgsConstructor
@@ -28,16 +28,20 @@ public class User implements Serializable {
     private String password;
     private int numero;
     private LocalDate date;
-    @ManyToMany
+    private boolean enabled;
+    private boolean tokenExpired;
+
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "users_roles",
             joinColumns = @JoinColumn(
                     name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(
                     name = "role_id", referencedColumnName = "id"))
-    private Role roles;
+    private Collection<Role> roles;
 
     public Long getId() {
         return id != null ? id : 0;
     }
+
 }

@@ -16,14 +16,21 @@ import java.util.Collection;
 public class Role implements Serializable {
 
     @Id
-    @Column(name = "role_id")
     @GeneratedValue(
             strategy = GenerationType.IDENTITY
     )
-    private Integer id;
+    private Long id;
 
     private String name;
+    @ManyToMany(fetch = FetchType.EAGER)//(mappedBy = "roles")
+    private Collection<User> users;
 
-    @ManyToMany(mappedBy = "roles")
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "roles_privileges",
+            joinColumns = @JoinColumn(
+                    name = "role_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "privilege_id", referencedColumnName = "id"))
     private Collection<Privilege> privileges;
 }

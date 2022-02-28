@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
 
 /***Cette classe réfère à une Unité d'Enseignement***/
@@ -25,7 +26,7 @@ public class UE implements Serializable {
     @Column(nullable = false)
     private String reference;
     @OneToMany(fetch = FetchType.EAGER)
-    private Cours cours;
+    private Collection<Cours> cours;
 
     public Long getId() {
         return id != null ? id : 0;

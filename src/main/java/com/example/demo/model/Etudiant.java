@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -25,9 +26,8 @@ public class Etudiant implements Serializable {
     private String email;
     private LocalDate date;
     private String matricule;
-    private List<Note> notes;
     @ManyToMany(fetch = FetchType.EAGER)
-    private Cours cours;
+    private Collection<Cours> cours;
 
     public Long getId() {
         return id != null ? id : 0;

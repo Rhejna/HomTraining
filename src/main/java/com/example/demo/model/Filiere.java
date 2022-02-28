@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -29,7 +30,7 @@ public class Filiere implements Serializable {
     private int nombreTranches;
     private int montantPension;
     @ManyToMany(fetch = FetchType.EAGER)
-    private UE uniteE;
+    private Collection<UE> uniteE;
 
     public Long getId() {
         return id != null ? id : 0;

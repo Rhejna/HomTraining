@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Collection;
 
 @Entity
 @Table
@@ -23,7 +24,7 @@ public class Cours implements Serializable {
     @Column(nullable = false)
     private String reference;
     @ManyToMany(fetch = FetchType.EAGER)
-    private Etudiant etudiant;
+    private Collection<Etudiant> etudiant;
     @ManyToOne(fetch = FetchType.EAGER)
     private User formateur;
     private UE unitéE;
