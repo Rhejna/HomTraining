@@ -26,4 +26,8 @@ public class Planning implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
     private Formateur formateur;
     private Cours cours;
+
+    public Long getId() {
+        return id != null ? id : 0;
+    }
 }

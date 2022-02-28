@@ -22,6 +22,12 @@ public class UE implements Serializable {
     )
     private Long id;
     private String libellé;
+    @Column(nullable = false)
+    private String reference;
     @OneToMany(fetch = FetchType.EAGER)
-    private List<Cours> cours;
+    private Cours cours;
+
+    public Long getId() {
+        return id != null ? id : 0;
+    }
 }

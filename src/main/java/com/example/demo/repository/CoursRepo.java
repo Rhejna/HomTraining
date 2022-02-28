@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CoursRepo extends JpaRepository<Cours, Long> {
+    Cours findByReference(String reference);
 }

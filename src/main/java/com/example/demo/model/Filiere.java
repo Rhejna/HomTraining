@@ -22,10 +22,16 @@ public class Filiere implements Serializable {
     )
     private Long id;
     private String nom;
+    @Column(nullable = false)
+    private String reference;
     private Date dateDebut;
     private Date dateFin;
     private int nombreTranches;
     private int montantPension;
-    @ManyToMany
-    private List<UE> uniteE;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private UE uniteE;
+
+    public Long getId() {
+        return id != null ? id : 0;
+    }
 }
