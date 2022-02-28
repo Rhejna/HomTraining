@@ -20,7 +20,7 @@ public class Note implements Serializable {
     private Long id;
     //c'est la note donnée
     private float point;
-    private Formateur formateur;
+    private User formateur;
     private Cours cours;
     @ManyToOne(fetch = FetchType.EAGER)
     private Etudiant etudiant;

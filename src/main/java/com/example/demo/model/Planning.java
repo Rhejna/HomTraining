@@ -22,9 +22,9 @@ public class Planning implements Serializable {
     private LocalDate date;
     @Column(nullable = false)
     private String reference;
-    private CDEs chargeEtudes;
+    private User chargeEtudes;
     @ManyToOne(fetch = FetchType.EAGER)
-    private Formateur formateur;
+    private User formateur;
     private Cours cours;
 
     public Long getId() {

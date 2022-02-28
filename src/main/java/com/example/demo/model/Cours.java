@@ -25,7 +25,7 @@ public class Cours implements Serializable {
     @ManyToMany(fetch = FetchType.EAGER)
     private Etudiant etudiant;
     @ManyToOne(fetch = FetchType.EAGER)
-    private Formateur formateur;
+    private User formateur;
     private UE unitéE;
 
     public Long getId() {
