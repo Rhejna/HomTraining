@@ -10,10 +10,10 @@ import java.time.LocalDate;
 import java.util.Collection;
 
 @Entity //for hibernate
-@Table(name="users")
 @Data //crée des getters et setters
 @NoArgsConstructor // cree un constructeur par defaut
 @AllArgsConstructor
+@Table(name="users")
 public class User implements Serializable {
 
     @Id

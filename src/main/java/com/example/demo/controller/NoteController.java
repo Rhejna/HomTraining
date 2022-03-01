@@ -32,15 +32,20 @@ public class NoteController {
         return service.getNotesEtudiant(idEtudiant);
     }
 
-//    @PostMapping("/")
-//    public Note create(@RequestBody Note Note) {
-//        return this.service.saveNote(Note);
+//    @GetMapping("/note/{idEtudiant, coursId}")
+//    public Note getNote(@PathVariable Long idEtudiant, Long coursId) {
+//        return service.getNote(idEtudiant, coursId);
 //    }
-//
-//    @PutMapping("/")
-//    public Note update(@RequestBody Note Note) {
-//        return this.service.updateNote(Note);
-//    }
+
+    @PostMapping("/")
+    public Note create(@RequestBody Note note) {
+        return this.service.saveNote(note);
+    }
+
+    @PutMapping("/")
+    public Note update(@RequestBody Note note) {
+        return this.service.updateNote(note);
+    }
 
     @DeleteMapping("/delete/{idNote}")
     public String delete(@PathVariable Long idNote) {

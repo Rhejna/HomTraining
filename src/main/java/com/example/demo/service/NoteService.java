@@ -8,16 +8,18 @@ public interface NoteService {
     List<Note> allNotes();
 
     /***liste des notes d'un cours spécifique***/
-    public List<Note> getNotesCours(Long coursId);
+    List<Note> getNotesCours(Long coursId);
 
     /***liste des notes d'un étudiant spécifique***/
-    public List<Note> getNotesEtudiant(Long etudiantId);
+    List<Note> getNotesEtudiant(Long etudiantId);
 
+    /***Trouver une note d'un étudiant à un cours spécifique***/
 //    Note getNote(Long etudiantId, Long coursId);
 
+    Note saveNote(Note note);
 //    Note saveNote(Note note, Long etudiantId, Long coursId);
 
     String deleteNote(Long id);
 
-//    Note updateNote(Note note, Long etudiantId, Long coursId);
+    Note updateNote(Note note);
 }

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class NoteServiceImpl implements NoteService {
@@ -46,48 +47,49 @@ public class NoteServiceImpl implements NoteService {
 
     }
 
-    // trouver une note d'un étudiant à un cours spécifique
+    /***Trouver une note d'un étudiant à un cours spécifique***/
 //    @Override
 //    public Note getNote(Long etudiantId, Long coursId) {
 //        Cours cours = coursRepo.findById(coursId).get();
 //        List<Etudiant> etudiantList = etudiantRepo.findByCours(cours);
 //        for (Etudiant etudiant : etudiantList){
-//            if (etudiant.getId() == etudiantId){
-//                return noteRepo.
+//            if (etudiant.getId().equals(etudiantId)){
+//                return noteRepo.getByEtudiant(etudiantId);
 //            }
 //        }
-//        return noteRepo.findByReference(reference);
+//        return null;
 //    }
 
-//    @Override
-//    @Transactional
-//    public Note saveNote(Note note, Long etudiantId, Long coursId) {
-//        try {
-//            Note bean = noteRepo.findByReference(note.getReference());
-//            if (bean != null && bean.getId() > 0) {
-//                return new Note();
-//            }
-//            return noteRepo.save(note);
-//        } catch (Exception e) {
-//            System.out.println(e.getMessage());
-//            return new Note();
-//        }
-//    }
+    @Override
+    @Transactional
+    public Note saveNote(Note note) {
+        note.setNoteCode(UUID.randomUUID().toString());
+        try {
+            Note bean = noteRepo.findByNoteCode(note.getNoteCode());
+            if (bean != null && bean.getId() > 0) {
+                return new Note();
+            }
+            return noteRepo.save(note);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return new Note();
+        }
+    }
 
-//    @Override
-//    @Transactional
-//    public Note updateNote(Note note) {
-//        try {
-//            Note bean = noteRepo.findByReference(note.getReference());
-//            if (bean != null && bean.getId() != note.getId()) {
-//                return new Note();
-//            }
-//            return noteRepo.save(note);
-//        } catch (Exception e) {
-//            System.out.println(e.getMessage());
-//            return new Note();
-//        }
-//    }
+    @Override
+    @Transactional
+    public Note updateNote(Note note) {
+        try {
+            Note bean = noteRepo.findByNoteCode(note.getNoteCode());
+            if (bean != null && bean.getId() != note.getId()) {
+                return new Note();
+            }
+            return noteRepo.save(note);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return new Note();
+        }
+    }
 
     @Override
     public String deleteNote(Long id) {

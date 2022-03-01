@@ -24,6 +24,8 @@ public class Note implements Serializable {
     private Cours cours;
     @ManyToOne(fetch = FetchType.EAGER)
     private Etudiant etudiant;
+    @Column(nullable = false, updatable = false)
+    private String noteCode;
 
     public Long getId() {
         return id != null ? id : 0;
