@@ -28,6 +28,7 @@ public class Etudiant implements Serializable {
     private String matricule;
     @ManyToMany(fetch = FetchType.EAGER)
     private Collection<Cours> cours;
+    private boolean solvabilite;
 
     public Long getId() {
         return id != null ? id : 0;

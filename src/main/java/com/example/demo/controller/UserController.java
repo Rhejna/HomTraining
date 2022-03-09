@@ -22,8 +22,8 @@ public class UserController {
         return service.allUsers();
     }
 
-    @GetMapping("/reference/{value}")
-    public User getByReference(@PathVariable String value) {
+    @GetMapping("/email/{value}")
+    public User getByEmail(@PathVariable String value) {
         return this.service.getUser(value);
     }
 

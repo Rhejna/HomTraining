@@ -20,14 +20,14 @@ public class Cours implements Serializable {
     )
     private Long id;
     @Column(nullable = false)
-    private String libellé;
+    private String libelle;
     @Column(nullable = false)
     private String reference;
     @ManyToMany(fetch = FetchType.EAGER)
     private Collection<Etudiant> etudiant;
     @ManyToOne(fetch = FetchType.EAGER)
     private User formateur;
-    private UE unitéE;
+    private UE uniteE;
 
     public Long getId() {
         return id != null ? id : 0;

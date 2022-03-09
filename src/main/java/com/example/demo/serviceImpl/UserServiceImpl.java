@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -47,8 +48,9 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public User createUser(User user) {
+        user.setUserCode(UUID.randomUUID().toString());
         try {
-            User utilisateur = userRepo.findByNumero(user.getNumero());
+            User utilisateur = userRepo.findByUserCode(user.getUserCode());
             if (utilisateur != null && utilisateur.getId() > 0) {
                 return new User();
             }
@@ -63,7 +65,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public User updateUser(User user) {
         try {
-            User utilisateur = userRepo.findByNumero(user.getNumero());
+            User utilisateur = userRepo.findByUserCode(user.getUserCode());
             if (utilisateur != null && utilisateur.getId() != user.getId()) {
                 return new User();
             }

@@ -4,9 +4,12 @@ import com.example.demo.model.Cours;
 import com.example.demo.repository.CoursRepo;
 import com.example.demo.service.CoursService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
+
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class CoursServiceImpl implements CoursService {
@@ -27,8 +30,9 @@ public class CoursServiceImpl implements CoursService {
     }
 
     @Override
-    @Transactional
+    @Transactional(value = "transactionManager", propagation = Propagation.REQUIRES_NEW, rollbackFor = {Throwable.class})
     public Cours saveCours(Cours cours){
+        cours.setReference(UUID.randomUUID().toString());
         try {
             Cours bean = coursRepo.findByReference(cours.getReference());
             if (bean != null && bean.getId() > 0) {

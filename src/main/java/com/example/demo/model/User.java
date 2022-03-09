@@ -27,7 +27,7 @@ public class User implements Serializable {
     private String email;
     private String password;
     private int numero;
-    private LocalDate date;
+    private String userCode;
     private boolean enabled;
     private boolean tokenExpired;
 
