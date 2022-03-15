@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table
@@ -29,8 +30,15 @@ public class Filiere implements Serializable {
     private Date dateFin;
     private int nombreTranches;
     private int montantPension;
+    @Transient
+    private String uniteEId;
     @ManyToMany(fetch = FetchType.EAGER)
-    private Collection<UE> uniteE;
+    @JoinTable(
+            name = "filiere_unitee",
+            joinColumns = @JoinColumn(name = "filiere_id"),
+            inverseJoinColumns = @JoinColumn(name = "unitee_id")
+    )
+    private Set<UE> uniteE;
 
     public Long getId() {
         return id != null ? id : 0;

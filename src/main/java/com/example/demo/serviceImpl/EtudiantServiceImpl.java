@@ -1,12 +1,16 @@
 package com.example.demo.serviceImpl;
 
+import com.example.demo.model.Cours;
 import com.example.demo.model.Etudiant;
 import com.example.demo.repository.EtudiantRepo;
 import com.example.demo.service.EtudiantService;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class EtudiantServiceImpl implements EtudiantService {
@@ -37,8 +41,23 @@ public class EtudiantServiceImpl implements EtudiantService {
         try {
             Etudiant bean = etudiantRepo.findByMatricule(etudiant.getMatricule());
             if (bean != null && bean.getId() > 0) {
+
                 return new Etudiant();
             }
+
+            String[] ids = etudiant.getCoursId().split(",");
+            Set<Cours> coursList = new HashSet<>();
+            //System.out.println(ids);
+            for(String i : ids){
+                if (i != ""){
+                    //System.out.println(i);
+                    coursList.add(new Cours(Long.valueOf(i)));
+                }
+            }
+            //System.out.println(coursList);
+            etudiant.setCours(coursList);
+
+
             return etudiantRepo.save(etudiant);
         } catch (Exception e) {
             System.out.println(e.getMessage());

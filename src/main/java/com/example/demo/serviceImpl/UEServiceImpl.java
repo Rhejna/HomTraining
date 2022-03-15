@@ -1,12 +1,15 @@
 package com.example.demo.serviceImpl;
 
+import com.example.demo.model.Cours;
 import com.example.demo.model.UE;
 import com.example.demo.repository.UERepo;
 import com.example.demo.service.UEService;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class UEServiceImpl implements UEService {
@@ -34,6 +37,19 @@ public class UEServiceImpl implements UEService {
             if (bean != null && bean.getId() > 0) {
                 return new UE();
             }
+
+            String[] ids = uniteE.getCoursId().split(",");
+            Set<Cours> coursList = new HashSet<>();
+            //System.out.println(ids);
+            for(String i : ids){
+                if (i != ""){
+                    //System.out.println(i);
+                    coursList.add(new Cours(Long.valueOf(i)));
+                }
+            }
+            //System.out.println(coursList);
+            uniteE.setCours(coursList);
+
             return ueRepo.save(uniteE);
         } catch (Exception e) {
             System.out.println(e.getMessage());

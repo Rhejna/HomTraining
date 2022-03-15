@@ -23,11 +23,14 @@ public class Cours implements Serializable {
     private String libelle;
     @Column(nullable = false)
     private String reference;
-    @ManyToMany(fetch = FetchType.EAGER)
-    private Collection<Etudiant> etudiant;
+
     @ManyToOne(fetch = FetchType.EAGER)
     private User formateur;
     private UE uniteE;
+
+    public Cours(Long id) {
+        this.id = id;
+    }
 
     public Long getId() {
         return id != null ? id : 0;

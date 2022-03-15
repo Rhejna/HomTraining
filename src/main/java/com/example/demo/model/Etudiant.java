@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table
@@ -26,8 +27,15 @@ public class Etudiant implements Serializable {
     private String email;
     private LocalDate date;
     private String matricule;
+    @Transient
+    private String coursId;
     @ManyToMany(fetch = FetchType.EAGER)
-    private Collection<Cours> cours;
+    @JoinTable(
+            name = "etudiant_cours",
+            joinColumns = @JoinColumn(name = "etudiant_id"),
+            inverseJoinColumns = @JoinColumn(name = "cours_id")
+    )
+    private Set<Cours> cours;
     private boolean solvabilite;
 
     public Long getId() {

@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 /***Cette classe réfère à une Unité d'Enseignement***/
 
@@ -25,8 +26,19 @@ public class UE implements Serializable {
     private String libellé;
     @Column(nullable = false)
     private String reference;
+    @Transient
+    private String coursId;
     @OneToMany(fetch = FetchType.EAGER)
-    private Collection<Cours> cours;
+    @JoinTable(
+            name = "ue_cours",
+            joinColumns = @JoinColumn(name = "ue_id"),
+            inverseJoinColumns = @JoinColumn(name = "cours_id")
+    )
+    private Set<Cours> cours;
+
+    public UE(Long id) {
+        this.id = id;
+    }
 
     public Long getId() {
         return id != null ? id : 0;

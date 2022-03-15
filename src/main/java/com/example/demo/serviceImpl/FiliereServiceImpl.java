@@ -1,12 +1,16 @@
 package com.example.demo.serviceImpl;
 
+import com.example.demo.model.Cours;
 import com.example.demo.model.Filiere;
+import com.example.demo.model.UE;
 import com.example.demo.repository.FiliereRepo;
 import com.example.demo.service.FiliereService;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class FiliereServiceImpl implements FiliereService {
@@ -34,6 +38,20 @@ public class FiliereServiceImpl implements FiliereService {
             if (bean != null && bean.getId() > 0) {
                 return new Filiere();
             }
+
+            String[] ids = filiere.getUniteEId().split(",");
+            Set<UE> uniteEList = new HashSet<>();
+            //System.out.println(ids);
+            for(String i : ids){
+                if (i != ""){
+                    //System.out.println(i);
+                    uniteEList.add(new UE(Long.valueOf(i)));
+                }
+            }
+            //System.out.println(coursList);
+            filiere.setUniteE(uniteEList);
+
+
             return filiereRepo.save(filiere);
         } catch (Exception e) {
             System.out.println(e.getMessage());

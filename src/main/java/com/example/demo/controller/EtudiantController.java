@@ -23,7 +23,7 @@ public class EtudiantController {
     }
 
     @GetMapping("/matricule/{value}")
-    public Etudiant getByReference(@PathVariable String value) {
+    public Etudiant getByMatricule(@PathVariable String value) {
         return this.service.getEtudiant(value);
     }
 

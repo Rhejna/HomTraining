@@ -30,7 +30,7 @@ public class CoursServiceImpl implements CoursService {
     }
 
     @Override
-    @Transactional(value = "transactionManager", propagation = Propagation.REQUIRES_NEW, rollbackFor = {Throwable.class})
+    @Transactional //substring sur ref
     public Cours saveCours(Cours cours){
         cours.setReference(UUID.randomUUID().toString());
         try {
