@@ -10,7 +10,7 @@ import java.util.List;
 
 @Service
 public class PlanningServiceImpl implements PlanningService {
-    private PlanningRepo planningRepo;
+    private final PlanningRepo planningRepo;
 
     public PlanningServiceImpl(PlanningRepo planningRepo) {
         this.planningRepo = planningRepo;

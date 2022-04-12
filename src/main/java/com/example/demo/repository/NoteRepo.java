@@ -19,4 +19,6 @@ public interface NoteRepo extends JpaRepository<Note, Long> {
 //    Note getByEtudiant(Long etudiantId);
 
     Note findByNoteCode(String noteCode);
+    Note findByCoursAndEtudiant(Cours cours, Etudiant etudiant);
+
 }

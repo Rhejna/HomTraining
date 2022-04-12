@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 public interface UERepo extends JpaRepository<UE, Long> {
     UE findByReference(String reference);
+    UE findByCours(Cours cours);
 }

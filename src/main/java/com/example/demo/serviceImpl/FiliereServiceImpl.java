@@ -11,10 +11,11 @@ import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 @Service
 public class FiliereServiceImpl implements FiliereService {
-    private FiliereRepo filiereRepo;
+    private final FiliereRepo filiereRepo;
 
     public FiliereServiceImpl(FiliereRepo filiereRepo) {
         this.filiereRepo = filiereRepo;
@@ -33,23 +34,27 @@ public class FiliereServiceImpl implements FiliereService {
     @Override
     @Transactional
     public Filiere saveFiliere(Filiere filiere) {
+        filiere.setReference(UUID.randomUUID().toString());
         try {
             Filiere bean = filiereRepo.findByReference(filiere.getReference());
             if (bean != null && bean.getId() > 0) {
                 return new Filiere();
             }
 
-            String[] ids = filiere.getUniteEId().split(",");
-            Set<UE> uniteEList = new HashSet<>();
-            //System.out.println(ids);
-            for(String i : ids){
-                if (i != ""){
-                    //System.out.println(i);
-                    uniteEList.add(new UE(Long.valueOf(i)));
+            //while(filiere.getUniteEId() != null){
+                String[] ids = filiere.getUniteEId().split(",");
+                Set<UE> uniteEList = new HashSet<>();
+                //System.out.println(ids);
+                for(String i : ids){
+                    if (i != ""){
+                        //System.out.println(i);
+                        uniteEList.add(new UE(Long.valueOf(i)));
+                    }
                 }
-            }
-            //System.out.println(coursList);
-            filiere.setUniteE(uniteEList);
+                //System.out.println(coursList);
+                filiere.setUniteE(uniteEList);
+            //}
+
 
 
             return filiereRepo.save(filiere);

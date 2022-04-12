@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table
@@ -26,7 +28,16 @@ public class Cours implements Serializable {
 
     @ManyToOne(fetch = FetchType.EAGER)
     private User formateur;
-    private UE uniteE;
+
+    /*@OneToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "cours_outlinesCours",
+            joinColumns = @JoinColumn(name = "cours_id"),
+            inverseJoinColumns = @JoinColumn(name = "outlinesCours_id")
+    )
+    private Set<OutlinesCours> courseOutline;*/
+
+    private boolean isComplete = false;
 
     public Cours(Long id) {
         this.id = id;

@@ -34,11 +34,15 @@ public class Filiere implements Serializable {
     private String uniteEId;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-            name = "filiere_unitee",
+            name = "filiere_ue",
             joinColumns = @JoinColumn(name = "filiere_id"),
-            inverseJoinColumns = @JoinColumn(name = "unitee_id")
+            inverseJoinColumns = @JoinColumn(name = "ue_id")
     )
     private Set<UE> uniteE;
+
+    public Filiere(Long id) {
+        this.id = id;
+    }
 
     public Long getId() {
         return id != null ? id : 0;

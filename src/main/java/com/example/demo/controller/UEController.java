@@ -11,8 +11,7 @@ import java.util.List;
 @RequestMapping(Constantes.PATH + "uniteEnseignement")
 @CrossOrigin("*")
 public class UEController {
-
-    private UEService service;
+    private final UEService service;
 
     public UEController(UEService service) {
         this.service = service;

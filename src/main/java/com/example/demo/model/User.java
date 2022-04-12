@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
 
 @Entity //for hibernate
@@ -24,12 +25,15 @@ public class User implements Serializable {
 
     private String firstName;
     private String lastName;
+    private String name;
     private String email;
     private String password;
     private int numero;
     private String userCode;
-    private boolean enabled;
+    /*private boolean enabled;
     private boolean tokenExpired;
+    private String[] role;
+    private String[] authorities;*/
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -38,10 +42,13 @@ public class User implements Serializable {
                     name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(
                     name = "role_id", referencedColumnName = "id"))
-    private Collection<Role> roles;
+    private Collection<Role> roles = new ArrayList<>();
 
     public Long getId() {
         return id != null ? id : 0;
     }
 
+    public String getName() {
+        return this.firstName + "" + this.lastName;
+    }
 }

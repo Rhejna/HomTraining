@@ -22,6 +22,6 @@ public class Privilege implements Serializable {
 
     private String name;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    private Collection<Role> roles;
+    /*@ManyToMany(fetch = FetchType.EAGER)
+    private Collection<Role> roles;*/
 }

@@ -28,14 +28,14 @@ public class Etudiant implements Serializable {
     private LocalDate date;
     private String matricule;
     @Transient
-    private String coursId;
+    private String filiereId;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-            name = "etudiant_cours",
+            name = "etudiant_filiere",
             joinColumns = @JoinColumn(name = "etudiant_id"),
-            inverseJoinColumns = @JoinColumn(name = "cours_id")
+            inverseJoinColumns = @JoinColumn(name = "filiere_id")
     )
-    private Set<Cours> cours;
+    private Set<Filiere> filiere;
     private boolean solvabilite;
 
     public Long getId() {

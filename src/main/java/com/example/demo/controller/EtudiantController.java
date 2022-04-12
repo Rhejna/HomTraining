@@ -11,7 +11,7 @@ import java.util.List;
 @RequestMapping(Constantes.PATH + "etudiant")
 @CrossOrigin("*")
 public class EtudiantController {
-    private EtudiantService service;
+    private final EtudiantService service;
 
     public EtudiantController(EtudiantService service) {
         this.service = service;
@@ -25,6 +25,11 @@ public class EtudiantController {
     @GetMapping("/matricule/{value}")
     public Etudiant getByMatricule(@PathVariable String value) {
         return this.service.getEtudiant(value);
+    }
+
+    @GetMapping("/cours/{idCours}")
+    public List<Etudiant> getByCours(@PathVariable Long idCours) {
+        return this.service.getEtudiantsByCours(idCours);
     }
 
     @PostMapping("/")

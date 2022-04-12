@@ -23,7 +23,7 @@ public class UE implements Serializable {
             strategy = GenerationType.IDENTITY
     )
     private Long id;
-    private String libellé;
+    private String libelle;
     @Column(nullable = false)
     private String reference;
     @Transient

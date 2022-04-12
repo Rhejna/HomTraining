@@ -19,13 +19,16 @@ public class Planning implements Serializable {
             strategy = GenerationType.IDENTITY
     )
     private Long id;
-    private LocalDate date;
+    private String title;
     @Column(nullable = false)
+    private LocalDate date;
+    //@Column(nullable = false)
     private String reference;
     @ManyToOne(fetch = FetchType.EAGER)
     private User chargeEtudes;
     @ManyToOne(fetch = FetchType.EAGER)
     private User formateur;
+    @ManyToOne(fetch = FetchType.EAGER)
     private Cours cours;
 
     public Long getId() {

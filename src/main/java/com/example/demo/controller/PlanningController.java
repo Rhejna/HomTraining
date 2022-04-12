@@ -11,7 +11,7 @@ import java.util.List;
 @RequestMapping(Constantes.PATH + "planning")
 @CrossOrigin("*")
 public class PlanningController {
-    private PlanningService service;
+    private final PlanningService service;
 
     public PlanningController(PlanningService service) {
         this.service = service;

@@ -11,7 +11,7 @@ import java.util.List;
 @RequestMapping(Constantes.PATH + "notes")
 @CrossOrigin("*")
 public class NoteController {
-    private NoteService service;
+    private final NoteService service;
 
     public NoteController(NoteService service) {
         this.service = service;
@@ -37,9 +37,9 @@ public class NoteController {
 //        return service.getNote(idEtudiant, coursId);
 //    }
 
-    @PostMapping("/")
-    public Note create(@RequestBody Note note) {
-        return this.service.saveNote(note);
+    @PostMapping("/{coursId}/{etudiantId}")
+    public Note create(@RequestBody Note note, @PathVariable Long etudiantId, @PathVariable Long coursId) {
+        return this.service.saveNote(note, etudiantId, coursId);
     }
 
     @PutMapping("/")

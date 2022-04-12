@@ -11,7 +11,7 @@ import java.util.List;
 @RequestMapping(Constantes.PATH + "filiere")
 @CrossOrigin("*")
 public class FiliereController {
-    private FiliereService service;
+    private final FiliereService service;
 
     public FiliereController(FiliereService service) {
         this.service = service;

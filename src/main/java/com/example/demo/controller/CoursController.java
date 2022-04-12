@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Cours;
+import com.example.demo.model.OutlinesCours;
 import com.example.demo.service.CoursService;
 import com.example.demo.utils.Constantes;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +12,7 @@ import java.util.List;
 @RequestMapping(Constantes.PATH + "cours")
 @CrossOrigin("*")
 public class CoursController {
-    private CoursService service;
+    private final CoursService service;
 
     public CoursController(CoursService service) {
         this.service = service;
@@ -22,8 +23,18 @@ public class CoursController {
         return service.allCours();
     }
 
+    @GetMapping("/outlines/{idCours}")
+    public List<OutlinesCours> getOutlines(@PathVariable Long idCours) {
+        return this.service.getOutlines(idCours);
+    }
+
     @GetMapping("/reference/{value}")
     public Cours getByReference(@PathVariable String value) {
+        return this.service.getCours(value);
+    }
+
+    @GetMapping("/id/{value}")
+    public Cours getById(@PathVariable Long value) {
         return this.service.getCours(value);
     }
 

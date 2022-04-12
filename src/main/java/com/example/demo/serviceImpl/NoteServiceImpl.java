@@ -15,9 +15,9 @@ import java.util.UUID;
 
 @Service
 public class NoteServiceImpl implements NoteService {
-    private NoteRepo noteRepo;
-    private CoursRepo coursRepo;
-    private EtudiantRepo etudiantRepo;
+    private final NoteRepo noteRepo;
+    private final CoursRepo coursRepo;
+    private final EtudiantRepo etudiantRepo;
 
     public NoteServiceImpl(NoteRepo noteRepo, CoursRepo coursRepo, EtudiantRepo etudiantRepo) {
         this.noteRepo = noteRepo;
@@ -62,13 +62,17 @@ public class NoteServiceImpl implements NoteService {
 
     @Override
     @Transactional
-    public Note saveNote(Note note) {
+    public Note saveNote(Note note, Long etudiantId, Long coursId) {
         note.setNoteCode(UUID.randomUUID().toString());
         try {
-            Note bean = noteRepo.findByNoteCode(note.getNoteCode());
+            Cours cours = coursRepo.findById(coursId).get();
+            Etudiant etudiant = etudiantRepo.findById(etudiantId).get();
+            Note bean = noteRepo.findByCoursAndEtudiant(cours, etudiant);
             if (bean != null && bean.getId() > 0) {
                 return new Note();
             }
+            note.setCours(cours);
+            note.setEtudiant(etudiant);
             return noteRepo.save(note);
         } catch (Exception e) {
             System.out.println(e.getMessage());

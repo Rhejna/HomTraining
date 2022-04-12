@@ -7,6 +7,8 @@ import java.util.List;
 public interface EtudiantService {
     List<Etudiant> allEtudiants();
 
+    List<Etudiant> getEtudiantsByCours(Long coursId);
+
     Etudiant getEtudiant(String matricule);
 
     Etudiant saveEtudiant(Etudiant etudiant);

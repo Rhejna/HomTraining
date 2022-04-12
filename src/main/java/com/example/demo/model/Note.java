@@ -18,9 +18,10 @@ public class Note implements Serializable {
             strategy = GenerationType.IDENTITY
     )
     private Long id;
-    //c'est la note donnée
-    private float point;
+    private float point; /**c'est la note donnée*/
+    @ManyToOne(fetch = FetchType.EAGER)
     private User formateur;
+    @ManyToOne(fetch = FetchType.EAGER)
     private Cours cours;
     @ManyToOne(fetch = FetchType.EAGER)
     private Etudiant etudiant;

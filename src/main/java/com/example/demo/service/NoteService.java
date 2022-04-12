@@ -16,8 +16,8 @@ public interface NoteService {
     /***Trouver une note d'un étudiant à un cours spécifique***/
 //    Note getNote(Long etudiantId, Long coursId);
 
-    Note saveNote(Note note);
-//    Note saveNote(Note note, Long etudiantId, Long coursId);
+//    Note saveNote(Note note);
+    Note saveNote(Note note, Long etudiantId, Long coursId);
 
     String deleteNote(Long id);
 

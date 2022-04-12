@@ -1,28 +1,39 @@
 package com.example.demo.serviceImpl;
 
 import com.example.demo.model.Cours;
+import com.example.demo.model.Filiere;
 import com.example.demo.model.Etudiant;
+import com.example.demo.model.UE;
+import com.example.demo.repository.CoursRepo;
 import com.example.demo.repository.EtudiantRepo;
+import com.example.demo.repository.FiliereRepo;
+import com.example.demo.repository.UERepo;
 import com.example.demo.service.EtudiantService;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class EtudiantServiceImpl implements EtudiantService {
-    private EtudiantRepo etudiantRepo;
+    private final EtudiantRepo etudiantRepo;
+    private final CoursRepo coursRepo;
+    private final FiliereRepo filiereRepo;
+    private final UERepo ueRepo;
 
-    public EtudiantServiceImpl(EtudiantRepo etudiantRepo){
+    public EtudiantServiceImpl(EtudiantRepo etudiantRepo,
+                               CoursRepo coursRepo,
+                               FiliereRepo filiereRepo,
+                               UERepo ueRepo) {
         this.etudiantRepo = etudiantRepo;
+        this.coursRepo = coursRepo;
+        this.filiereRepo = filiereRepo;
+        this.ueRepo = ueRepo;
     }
 
     // chercher la liste des notes d'un étudiant
 
-    // liste des cours suivis
+    // liste des Filiere suivis
 
 
     @Override
@@ -36,6 +47,18 @@ public class EtudiantServiceImpl implements EtudiantService {
     }
 
     @Override
+    public List<Etudiant> getEtudiantsByCours(Long coursId){
+        Cours cours = coursRepo.findById(coursId).get();
+        UE ue = ueRepo.findByCours(cours);
+        Filiere filiere = filiereRepo.findByUniteE(ue);
+        List<Etudiant> bean = etudiantRepo.findByFiliere(filiere);
+        if (bean == null) {
+            return Collections.emptyList();
+        }
+        return bean;
+    }
+
+    @Override
     @Transactional
     public Etudiant saveEtudiant(Etudiant etudiant) {
         try {
@@ -45,19 +68,19 @@ public class EtudiantServiceImpl implements EtudiantService {
                 return new Etudiant();
             }
 
-            String[] ids = etudiant.getCoursId().split(",");
-            Set<Cours> coursList = new HashSet<>();
-            //System.out.println(ids);
-            for(String i : ids){
-                if (i != ""){
-                    //System.out.println(i);
-                    coursList.add(new Cours(Long.valueOf(i)));
+            //while(etudiant.getFiliereId() != null){
+                String[] ids = etudiant.getFiliereId().split(",");
+                Set<Filiere> filiereList = new HashSet<>();
+                //System.out.println(ids);
+                for(String i : ids){
+                    if (i != ""){
+                        //System.out.println(i);
+                        filiereList.add(new Filiere(Long.valueOf(i)));
+                    }
                 }
-            }
-            //System.out.println(coursList);
-            etudiant.setCours(coursList);
-
-
+                //System.out.println(filiereList);
+                etudiant.setFiliere(filiereList);
+            //}
             return etudiantRepo.save(etudiant);
         } catch (Exception e) {
             System.out.println(e.getMessage());

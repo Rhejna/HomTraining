@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 public interface FiliereRepo extends JpaRepository<Filiere, Long> {
     Filiere findByReference(String reference);
+    Filiere findByUniteE(UE uniteE);
 }
