@@ -19,7 +19,7 @@ public class Role implements Serializable {
 
     @Id
     @GeneratedValue(
-            strategy = AUTO
+            strategy = GenerationType.IDENTITY
     )
     private Long id;
 
