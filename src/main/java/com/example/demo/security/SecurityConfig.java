@@ -1,4 +1,4 @@
-package com.example.demo.security;
+/*package com.example.demo.security;
 
 import com.example.demo.filter.CustomAuthenticationFilter;
 import com.example.demo.filter.CustomAuthorizationFilter;
@@ -31,13 +31,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         //auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
 
-        /**     A EFFACER    **/
+        //     A EFFACER    //
         //auth.inMemoryAuthentication().withUser("velda").password(passwordEncoder().encode("1234")).roles("USER");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        /*CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(authenticationManagerBean());
+        CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(authenticationManagerBean());
         customAuthenticationFilter.setFilterProcessesUrl("/api/homTraining/login");
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(STATELESS);
@@ -46,27 +46,27 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers(POST,  "/api/homTraining/user/**").hasAnyAuthority("ROLE_ADMIN");
         http.authorizeRequests().anyRequest().authenticated();
         http.addFilter(customAuthenticationFilter);
-        http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);*/
+        http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
 
-        /**     A EFFACER    **/
-        /*http
+        //     A EFFACER    //
+        http
                 .authorizeRequests()
                 .anyRequest().authenticated()
                 .and()
-                .httpBasic();*/
+                .httpBasic();
     }
 
 
 
-    /*@Bean
+    @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception{
         return super.authenticationManagerBean();
-    }*/
+    }
 
-    /**     A EFFACER    **/
+    //     A EFFACER    //
     @Bean
     PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
-}
+}*/

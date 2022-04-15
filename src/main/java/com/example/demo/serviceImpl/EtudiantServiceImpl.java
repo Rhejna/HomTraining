@@ -68,7 +68,7 @@ public class EtudiantServiceImpl implements EtudiantService {
                 return new Etudiant();
             }
 
-            //while(etudiant.getFiliereId() != null){
+            while(etudiant.getFiliereId() != null){
                 String[] ids = etudiant.getFiliereId().split(",");
                 Set<Filiere> filiereList = new HashSet<>();
                 //System.out.println(ids);
@@ -80,7 +80,9 @@ public class EtudiantServiceImpl implements EtudiantService {
                 }
                 //System.out.println(filiereList);
                 etudiant.setFiliere(filiereList);
-            //}
+                return etudiantRepo.save(etudiant);
+
+            }
             return etudiantRepo.save(etudiant);
         } catch (Exception e) {
             System.out.println(e.getMessage());

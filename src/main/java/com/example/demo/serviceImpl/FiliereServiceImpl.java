@@ -41,7 +41,7 @@ public class FiliereServiceImpl implements FiliereService {
                 return new Filiere();
             }
 
-            //while(filiere.getUniteEId() != null){
+            while(filiere.getUniteEId() != null){
                 String[] ids = filiere.getUniteEId().split(",");
                 Set<UE> uniteEList = new HashSet<>();
                 //System.out.println(ids);
@@ -51,9 +51,11 @@ public class FiliereServiceImpl implements FiliereService {
                         uniteEList.add(new UE(Long.valueOf(i)));
                     }
                 }
-                //System.out.println(coursList);
+                //System.out.println(uniteEList);
                 filiere.setUniteE(uniteEList);
-            //}
+                return filiereRepo.save(filiere);
+
+            }
 
 
 

@@ -40,7 +40,7 @@ public class UEServiceImpl implements UEService {
                 return new UE();
             }
 
-            //while(uniteE.getCoursId() != null){
+            while(uniteE.getCoursId() != null){
                 String[] ids = uniteE.getCoursId().split(",");
                 Set<Cours> coursList = new HashSet<>();
                 //System.out.println(ids);
@@ -52,7 +52,8 @@ public class UEServiceImpl implements UEService {
                 }
                 //System.out.println(coursList);
                 uniteE.setCours(coursList);
-            //}
+                return ueRepo.save(uniteE);
+            }
 
 
             return ueRepo.save(uniteE);

@@ -24,8 +24,8 @@ public class Planning implements Serializable {
     private LocalDate date;
     //@Column(nullable = false)
     private String reference;
-    @ManyToOne(fetch = FetchType.EAGER)
-    private User chargeEtudes;
+    /*@ManyToOne(fetch = FetchType.EAGER)
+    private User chargeEtudes;*/
     @ManyToOne(fetch = FetchType.EAGER)
     private User formateur;
     @ManyToOne(fetch = FetchType.EAGER)

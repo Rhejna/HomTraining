@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class PlanningServiceImpl implements PlanningService {
@@ -29,6 +30,7 @@ public class PlanningServiceImpl implements PlanningService {
     @Override
     @Transactional
     public Planning createPlanning(Planning planning) {
+        planning.setReference(UUID.randomUUID().toString());
         try{
             Planning plan = planningRepo.findByReference(planning.getReference());
             if (plan != null && plan.getId()>0){

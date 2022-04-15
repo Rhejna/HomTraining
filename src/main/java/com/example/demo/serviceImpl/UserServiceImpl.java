@@ -7,11 +7,11 @@ import com.example.demo.repository.UserRepo;
 import com.example.demo.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
+//import org.springframework.security.core.authority.SimpleGrantedAuthority;
+//import org.springframework.security.core.userdetails.UserDetails;
+//import org.springframework.security.core.userdetails.UserDetailsService;
+//import org.springframework.security.core.userdetails.UsernameNotFoundException;
+//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -24,7 +24,7 @@ import java.util.UUID;
 public class UserServiceImpl implements UserService { //UserDetailsService
     private final UserRepo userRepo;
     private final RoleRepo roleRepo;
-    private final PasswordEncoder passwordEncoder;
+    //private final PasswordEncoder passwordEncoder;
 
     /*@Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -95,7 +95,7 @@ public class UserServiceImpl implements UserService { //UserDetailsService
                 return new User();
             }
             /**Encoder le mot de passe*/
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            //user.setPassword(passwordEncoder.encode(user.getPassword()));
             return userRepo.save(user);
         } catch (Exception e) {
             System.out.println(e.getMessage());
