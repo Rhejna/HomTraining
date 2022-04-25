@@ -25,7 +25,11 @@ import static io.jsonwebtoken.Jwts.parser;
 @RequiredArgsConstructor
 public class JwtProvider {
 
-    private KeyStore keyStore;
+    private final JwtEncoder jwtEncoder;
+    @Value("${jwt.expiration.time}")
+    private Long jwtExpirationInMillis;
+
+    /*private KeyStore keyStore;
 
     @PostConstruct
     public void init(){
@@ -75,12 +79,8 @@ public class JwtProvider {
                 .getBody();
 
         return claims.getSubject();
-    }
+    }*/
 
-
-    /*private final JwtEncoder jwtEncoder;
-    @Value("${jwt.expiration.time}")
-    private Long jwtExpirationInMillis;
 
     public String generateToken(Authentication authentication) {
         User principal = (User) authentication.getPrincipal();
@@ -101,5 +101,5 @@ public class JwtProvider {
 
     public Long getJwtExpirationInMillis() {
         return jwtExpirationInMillis;
-    }*/
+    }
 }

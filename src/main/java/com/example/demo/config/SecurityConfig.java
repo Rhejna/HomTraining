@@ -2,7 +2,7 @@ package com.example.demo.config;
 
 //import com.example.demo.filter.CustomAuthenticationFilter;
 //import com.example.demo.filter.CustomAuthorizationFilter;
-import com.example.demo.security.JwtAuthentificationFilter;
+//import com.example.demo.security.JwtAuthentificationFilter;
 import com.example.demo.utils.Constantes;
 import com.nimbusds.jose.jwk.JWK;
 import com.nimbusds.jose.jwk.JWKSet;
@@ -47,19 +47,25 @@ import static org.springframework.http.HttpMethod.POST;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @Configuration
-//@RequiredArgsConstructor
-@EnableWebSecurity
-@AllArgsConstructor
+@RequiredArgsConstructor
+//@EnableWebSecurity
+//@AllArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final UserDetailsService userDetailsService;
     //private final BCryptPasswordEncoder bCryptPasswordEncoder;
-    private final JwtAuthentificationFilter jwtAuthentificationFilter;
+    //private final JwtAuthentificationFilter jwtAuthentificationFilter;
 
-    /*@Value("${jwt.public.key}")
+    @Value("${jwt.public.key}")
     RSAPublicKey publicKey;
 
     @Value("${jwt.private.key}")
-    RSAPrivateKey privateKey;*/
+    RSAPrivateKey privateKey;
+
+    @Bean(BeanIds.AUTHENTICATION_MANAGER)
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -72,11 +78,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        /*http.cors().and()
+        http.cors().and()
                 .csrf().disable()
                 .authorizeHttpRequests(authorize -> authorize
                         .antMatchers("/api/homTraining/auth/**").permitAll()
                         .antMatchers("/api/homTraining/user/**").permitAll()
+                        .antMatchers(GET, "/api/homTraining/etudiant/**").permitAll()
                         .anyRequest()
                         .authenticated())
                 .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
@@ -84,17 +91,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling(exceptions -> exceptions
                         .authenticationEntryPoint(new BearerTokenAuthenticationEntryPoint())
                         .accessDeniedHandler(new BearerTokenAccessDeniedHandler())
-                );*/
+                );
         //CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(authenticationManagerBean());
         //customAuthenticationFilter.setFilterProcessesUrl("/api/homTraining/login");
-        http.csrf().disable()
+        /*http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/api/homTraining/auth/**").permitAll()
                 .antMatchers("/api/homTraining/user/**").permitAll()
                 .anyRequest()
                 .authenticated();
                 //.permitAll();
-        http.addFilterBefore(jwtAuthentificationFilter, UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(jwtAuthentificationFilter, UsernamePasswordAuthenticationFilter.class);*/
         /*http.sessionManagement().sessionCreationPolicy(STATELESS);
         http.authorizeRequests().antMatchers("/api/homTraining/login/**", "/api/homTraining/user/token/refresh/**").permitAll();
         http.authorizeRequests().antMatchers(GET, "/api/homTraining/user/**").hasAnyAuthority("ROLE_USER");
@@ -113,11 +120,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
 
-    @Bean(BeanIds.AUTHENTICATION_MANAGER)
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
+
 
     //     A EFFACER    //
     @Bean
@@ -125,7 +128,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    /*@Bean
+    @Bean
     JwtDecoder jwtDecoder() {
         return NimbusJwtDecoder.withPublicKey(this.publicKey).build();
     }
@@ -135,5 +138,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         JWK jwk = new RSAKey.Builder(this.publicKey).privateKey(this.privateKey).build();
         JWKSource<SecurityContext> jwks = new ImmutableJWKSet<>(new JWKSet(jwk));
         return new NimbusJwtEncoder(jwks);
-    }*/
+    }
 }

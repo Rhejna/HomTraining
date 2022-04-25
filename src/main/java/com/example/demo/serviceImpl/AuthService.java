@@ -60,13 +60,12 @@ public class AuthService {
          * Si on trouve l'object, ça veut dire que le user est log-in**/
         SecurityContextHolder.getContext().setAuthentication(authenticate);
         String token = jwtProvider.generateToken(authenticate);
-        return new AuthenticationResponse(token, loginRequest.getEmail());
-                /*.builder()
+        return AuthenticationResponse.builder()
                 .authenticationToken(token)
                 .refreshToken(refreshTokenService.generateRefreshToken().getToken())
                 .expiresAt(Instant.now().plusMillis(jwtProvider.getJwtExpirationInMillis()))
                 .email(loginRequest.getEmail())
-                .build();*/
+                .build();
                 //(token, loginRequest.getEmail());
     }
 

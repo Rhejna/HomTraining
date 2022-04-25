@@ -1,4 +1,4 @@
-package com.example.demo.security;
+/*package com.example.demo.security;
 
 import antlr.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,4 +54,4 @@ public class JwtAuthentificationFilter extends OncePerRequestFilter {
 
         return bearerToken;
     }
-}
+}*/
