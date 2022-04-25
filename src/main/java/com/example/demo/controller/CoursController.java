@@ -38,6 +38,11 @@ public class CoursController {
         return this.service.getCours(value);
     }
 
+    @GetMapping("/etudiant/id/{value}")
+    public List<Cours> getByEtudiant(@PathVariable Long value) {
+        return this.service.getCoursByEtudiant(value);
+    }
+
     @PostMapping("/")
     public Cours create(@RequestBody Cours cours) {
         return this.service.saveCours(cours);

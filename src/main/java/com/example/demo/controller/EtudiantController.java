@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.model.Cours;
 import com.example.demo.model.Etudiant;
 import com.example.demo.service.EtudiantService;
 import com.example.demo.utils.Constantes;
@@ -24,6 +25,11 @@ public class EtudiantController {
 
     @GetMapping("/matricule/{value}")
     public Etudiant getByMatricule(@PathVariable String value) {
+        return this.service.getEtudiant(value);
+    }
+
+    @GetMapping("/id/{value}")
+    public Etudiant getById(@PathVariable Long value) {
         return this.service.getEtudiant(value);
     }
 

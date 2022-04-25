@@ -33,8 +33,10 @@ public class EtudiantServiceImpl implements EtudiantService {
 
     // chercher la liste des notes d'un étudiant
 
-    // liste des Filiere suivis
-
+    @Override
+    public Etudiant getEtudiant(Long id){
+        return etudiantRepo.findById(id).get();
+    }
 
     @Override
     public List<Etudiant> allEtudiants() {
@@ -48,14 +50,26 @@ public class EtudiantServiceImpl implements EtudiantService {
 
     @Override
     public List<Etudiant> getEtudiantsByCours(Long coursId){
+        List<Etudiant> list = new ArrayList<Etudiant>();
         Cours cours = coursRepo.findById(coursId).get();
-        UE ue = ueRepo.findByCours(cours);
-        Filiere filiere = filiereRepo.findByUniteE(ue);
-        List<Etudiant> bean = etudiantRepo.findByFiliere(filiere);
-        if (bean == null) {
-            return Collections.emptyList();
+        List<UE> ueList = ueRepo.findByCours(cours);
+        if (ueList.size() != 0) {
+            for (UE ue : ueList) {
+                List<Filiere> filieres = filiereRepo.findByUniteE(ue);
+                if (filieres.size() != 0) {
+                    for (Filiere filiere : filieres) {
+                        List<Etudiant> etudiantList = etudiantRepo.findByFiliere(filiere);
+                        if (etudiantList.size() != 0){
+                            for (Etudiant etudiant: etudiantList){
+                                list.add(etudiant);
+                            }
+                        }
+                    }
+                }
+            }
+            return list;
         }
-        return bean;
+        return Collections.emptyList();
     }
 
     @Override

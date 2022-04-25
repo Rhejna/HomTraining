@@ -12,6 +12,8 @@ public interface CoursService {
 
     Cours getCours(Long id);
 
+    List<Cours> getCoursByEtudiant(Long etudiantId);
+
     List<OutlinesCours> getOutlines(Long id);
 
     Cours saveCours(Cours cours);

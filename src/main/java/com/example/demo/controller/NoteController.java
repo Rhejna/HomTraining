@@ -32,10 +32,10 @@ public class NoteController {
         return service.getNotesEtudiant(idEtudiant);
     }
 
-//    @GetMapping("/note/{idEtudiant, coursId}")
-//    public Note getNote(@PathVariable Long idEtudiant, Long coursId) {
-//        return service.getNote(idEtudiant, coursId);
-//    }
+    @GetMapping("/{coursId}/{idEtudiant}")
+    public Note getNote(@PathVariable Long idEtudiant, @PathVariable Long coursId) {
+        return service.getNote(idEtudiant, coursId);
+    }
 
     @PostMapping("/{coursId}/{etudiantId}")
     public Note create(@RequestBody Note note, @PathVariable Long etudiantId, @PathVariable Long coursId) {

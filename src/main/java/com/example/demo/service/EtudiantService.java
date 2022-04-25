@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.model.Cours;
 import com.example.demo.model.Etudiant;
 
 import java.util.List;
@@ -8,6 +9,8 @@ public interface EtudiantService {
     List<Etudiant> allEtudiants();
 
     List<Etudiant> getEtudiantsByCours(Long coursId);
+
+    Etudiant getEtudiant(Long id);
 
     Etudiant getEtudiant(String matricule);
 

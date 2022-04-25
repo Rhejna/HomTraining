@@ -1,9 +1,12 @@
 package com.example.demo.serviceImpl;
 
+import com.example.demo.model.NotificationEmail;
 import com.example.demo.model.Role;
 import com.example.demo.model.User;
+import com.example.demo.model.VerificationToken;
 import com.example.demo.repository.RoleRepo;
 import com.example.demo.repository.UserRepo;
+import com.example.demo.repository.VerificationTokenRepo;
 import com.example.demo.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,7 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 //import org.springframework.security.core.userdetails.UserDetails;
 //import org.springframework.security.core.userdetails.UserDetailsService;
 //import org.springframework.security.core.userdetails.UsernameNotFoundException;
-//import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -24,7 +27,10 @@ import java.util.UUID;
 public class UserServiceImpl implements UserService { //UserDetailsService
     private final UserRepo userRepo;
     private final RoleRepo roleRepo;
-    //private final PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
+
+    private final VerificationTokenRepo verificationTokenRepository;
+    private final MailService mailService;
 
     /*@Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -88,19 +94,40 @@ public class UserServiceImpl implements UserService { //UserDetailsService
     @Override
     public User createUser(User user) {
         log.info("Save new user {} ", user.getFirstName());
-        user.setUserCode(UUID.randomUUID().toString());
+        //user.setUserCode(UUID.randomUUID().toString());
         try {
-            User utilisateur = userRepo.findByUserCode(user.getUserCode());
+            User utilisateur = userRepo.findByEmail(user.getEmail());
             if (utilisateur != null && utilisateur.getId() > 0) {
                 return new User();
             }
             /**Encoder le mot de passe*/
-            //user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user.setEnabled(false);
+
+
+            /**mail d'authentification**/
+            String token = generateVerificationToken(user);
+            mailService.sendMail(new NotificationEmail("Please Activate your Account",
+                    user.getEmail(), "Your account just got create on HomTraing, " +
+                    "please click on the below url to activate your account : " +
+                    "http://localhost:8080/api/homTraining/auth/accountVerification/" + token));
+
+
             return userRepo.save(user);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return new User();
         }
+    }
+
+    private String generateVerificationToken(User user) {
+        String token = UUID.randomUUID().toString();
+        VerificationToken verificationToken = new VerificationToken();
+        verificationToken.setToken(token);
+        verificationToken.setUser(user);
+
+        verificationTokenRepository.save(verificationToken);
+        return token;
     }
 
     @Override

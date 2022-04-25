@@ -48,17 +48,12 @@ public class NoteServiceImpl implements NoteService {
     }
 
     /***Trouver une note d'un étudiant à un cours spécifique***/
-//    @Override
-//    public Note getNote(Long etudiantId, Long coursId) {
-//        Cours cours = coursRepo.findById(coursId).get();
-//        List<Etudiant> etudiantList = etudiantRepo.findByCours(cours);
-//        for (Etudiant etudiant : etudiantList){
-//            if (etudiant.getId().equals(etudiantId)){
-//                return noteRepo.getByEtudiant(etudiantId);
-//            }
-//        }
-//        return null;
-//    }
+    @Override
+    public Note getNote(Long etudiantId, Long coursId) {
+        Etudiant etudiant = etudiantRepo.findById(etudiantId).get();
+        Cours cours = coursRepo.findById(coursId).get();
+        return noteRepo.findByCoursAndEtudiant(cours, etudiant);
+    }
 
     @Override
     @Transactional

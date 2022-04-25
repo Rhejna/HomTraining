@@ -38,6 +38,10 @@ public class Etudiant implements Serializable {
     private Set<Filiere> filiere;
     private boolean solvabilite;
 
+    public Etudiant(Long id) {
+        this.id = id;
+    }
+
     public Long getId() {
         return id != null ? id : 0;
     }

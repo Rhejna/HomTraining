@@ -1,27 +1,31 @@
 package com.example.demo.serviceImpl;
 
-import com.example.demo.model.Cours;
-import com.example.demo.model.OutlinesCours;
-import com.example.demo.repository.CoursRepo;
-import com.example.demo.repository.OutlinesCoursRepo;
+import com.example.demo.model.*;
+import com.example.demo.repository.*;
 import com.example.demo.service.CoursService;
+import com.example.demo.repository.EtudiantRepo;
+import com.example.demo.repository.FiliereRepo;
+import com.example.demo.repository.UERepo;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 
-import java.util.Collections;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class CoursServiceImpl implements CoursService {
     private final CoursRepo coursRepo;
     private final OutlinesCoursRepo outlinesRepo;
+    private final EtudiantRepo etudiantRepo;
+    private final FiliereRepo filiereRepo;
+    private final UERepo ueRepo;
 
-    public CoursServiceImpl(CoursRepo coursRepo, OutlinesCoursRepo outlinesRepo) {
+    public CoursServiceImpl(CoursRepo coursRepo, OutlinesCoursRepo outlinesRepo, EtudiantRepo etudiantRepo, FiliereRepo filiereRepo, UERepo ueRepo) {
         this.coursRepo = coursRepo;
         this.outlinesRepo = outlinesRepo;
+        this.etudiantRepo = etudiantRepo;
+        this.filiereRepo = filiereRepo;
+        this.ueRepo = ueRepo;
     }
 
     @Override
@@ -46,6 +50,31 @@ public class CoursServiceImpl implements CoursService {
         if (bean.getId() > 0) {
             return outlines;
         }
+        return Collections.emptyList();
+    }
+
+    @Override
+    public List<Cours> getCoursByEtudiant(Long etudiantId) {
+        List<Cours> list = new ArrayList<Cours>();
+        Etudiant etudiant = etudiantRepo.findById(etudiantId).get();
+        Set<Filiere> filieres = etudiant.getFiliere();
+        if (filieres.size() != 0){
+            for (Filiere filiere: filieres){
+                Set<UE> uniteEs = filiere.getUniteE();
+                if (uniteEs.size() != 0){
+                    for (UE ue: uniteEs){
+                        Set<Cours> coursList = ue.getCours();
+                        if (coursList.size() != 0){
+                            for (Cours cours: coursList){
+                                list.add(cours);
+                            }
+                        }
+                    }
+                }
+            }
+            return list;
+        }
+
         return Collections.emptyList();
     }
 

@@ -26,9 +26,12 @@ public class User implements Serializable {
     private String firstName;
     private String lastName;
     private String name;
+    @Column(nullable = false)
     private String email;
+    @Column(nullable = false)
     private String password;
     private int numero;
+    private boolean isEnabled;
     private String userCode;
     /*private boolean enabled;
     private boolean tokenExpired;
@@ -49,6 +52,7 @@ public class User implements Serializable {
     }
 
     public String getName() {
-        return this.firstName + "" + this.lastName;
+        return this.firstName + " " + this.lastName;
     }
+
 }
