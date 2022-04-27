@@ -33,7 +33,7 @@ public class DemoApplication {
 	/*@Bean
 	PasswordEncoder passwordEncoder(){
 		return new BCryptPasswordEncoder();
-	}
+	}*/
 
 	@Bean
 	CommandLineRunner run(UserService userService){
@@ -44,7 +44,7 @@ public class DemoApplication {
 			userService.saveRole(new Role(null, "ROLE_COMPTABLE"));
 			userService.saveRole(new Role(null, "ROLE_ADMIN"));
 
-			userService.createUser(new User(null, "irstName","lastName","fullName",
+			/*userService.createUser(new User(null, "irstName","lastName","fullName",
 					"mail@gm.cm","1234",123456789,"userCode", new ArrayList<>()));
 			userService.createUser(new User(null, "Tim","lastName","fullName",
 					"tim@gm.cm","1234",123456789,"userCodeJim", new ArrayList<>()));
@@ -55,9 +55,9 @@ public class DemoApplication {
 			userService.addRoleToUser("tim@gm.cm", "ROLE_CDE");
 			userService.addRoleToUser("tim@gm.cm", "ROLE_FORMATEUR");
 			userService.addRoleToUser("raul@gm.cm", "ROLE_COMPTABLE");
-			userService.addRoleToUser("raul@gm.cm", "ROLE_ADMIN");
+			userService.addRoleToUser("raul@gm.cm", "ROLE_ADMIN");*/
 
 		};
-	}*/
+	}
 
 }
