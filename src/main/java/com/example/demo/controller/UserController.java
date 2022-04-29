@@ -40,6 +40,11 @@ public class UserController {
         return this.service.getUser(value);
     }
 
+    @GetMapping("/role")
+    public List<Role> allRoles() {
+        return service.allRoles();
+    }
+
     @PostMapping("/")
     public User create(@RequestBody User user) {
         return this.service.createUser(user);
@@ -54,6 +59,11 @@ public class UserController {
     public void addRoleToUser(@RequestBody RoleToUserForm form) {
         this.service.addRoleToUser(form.getUserEmail(), form.getRoleName());
     }
+
+    /*@PostMapping("/role/addToUser")
+    public void addRoleToUser(@RequestBody String userEmail, @RequestBody String roleName) {
+        this.service.addRoleToUser(userEmail, roleName);
+    }*/
 
     @PutMapping("/")
     public User update(@RequestBody User user) {

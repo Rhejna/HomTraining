@@ -86,6 +86,12 @@ public class UserServiceImpl implements UserService { //UserDetailsService
     }
 
     @Override
+    public List<Role> allRoles(){
+        log.info("Fetching all roles");
+        return roleRepo.findAll();
+    }
+
+    @Override
     public User getUser(String email) {
         log.info("Fetching a specific user {}", email);
         return userRepo.findByEmail(email);
@@ -103,6 +109,9 @@ public class UserServiceImpl implements UserService { //UserDetailsService
             /**Encoder le mot de passe*/
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             user.setEnabled(false);
+
+            Role role = roleRepo.findByName("ROLE_USER");
+            user.getRoles().add(role);
 
 
             /**mail d'authentification**/
@@ -138,6 +147,7 @@ public class UserServiceImpl implements UserService { //UserDetailsService
             if (utilisateur != null && utilisateur.getId() != user.getId()) {
                 return new User();
             }
+
             return userRepo.save(user);
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -150,6 +160,8 @@ public class UserServiceImpl implements UserService { //UserDetailsService
         log.info("Delete User");
         User utilisateur = userRepo.findById(id).orElse(new User());
         if (utilisateur.getId() > 0) {
+            VerificationToken token = verificationTokenRepository.findByUser(utilisateur);
+            verificationTokenRepository.delete(token);
             userRepo.delete(utilisateur);
             return "Utilisateur Supprimé !";
         }

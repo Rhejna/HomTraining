@@ -37,7 +37,7 @@ public class Cours implements Serializable {
     )
     private Set<OutlinesCours> courseOutline;*/
 
-    private boolean isComplete = false;
+    private boolean isComplete;
 
     public Cours(Long id) {
         this.id = id;

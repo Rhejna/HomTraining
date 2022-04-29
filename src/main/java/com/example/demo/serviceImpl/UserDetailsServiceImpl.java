@@ -1,5 +1,6 @@
 package com.example.demo.serviceImpl;
 
+import com.example.demo.model.Role;
 import com.example.demo.model.User;
 import com.example.demo.repository.UserRepo;
 import lombok.AllArgsConstructor;
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 import static java.util.Collections.singletonList;
@@ -44,10 +46,22 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return new org.springframework.security
                 .core.userdetails.User(user.getEmail(), user.getPassword(),
                 user.isEnabled(), true, true,
-                true, getAuthorities("USER"));
+                true, getAuthorities(user.getRoles())); //getAuthorities("USER")
     }
 
-    private Collection<? extends GrantedAuthority> getAuthorities(String role) {
+    /*private Collection<? extends GrantedAuthority> getAuthorities(String role) {
         return singletonList(new SimpleGrantedAuthority(role));
+    }*/
+
+    private Collection<? extends GrantedAuthority> getAuthorities(Collection<Role> roles) {
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        for (Role role: roles) {
+            authorities.add(new SimpleGrantedAuthority(role.getName()));
+            /*role.getPrivileges().stream()
+                    .map(p -> new SimpleGrantedAuthority(p.getName()))
+                    .forEach(authorities::add);*/
+        }
+
+        return authorities;
     }
 }

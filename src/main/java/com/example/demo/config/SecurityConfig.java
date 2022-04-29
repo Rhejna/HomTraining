@@ -48,7 +48,7 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 
 @Configuration
 @RequiredArgsConstructor
-//@EnableWebSecurity
+@EnableWebSecurity
 //@AllArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final UserDetailsService userDetailsService;
@@ -82,7 +82,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeHttpRequests(authorize -> authorize
                         .antMatchers("/api/homTraining/auth/**").permitAll()
-                        .antMatchers(GET,"/api/homTraining/user/").permitAll()
+                        .antMatchers("/api/homTraining/user/**").hasAnyAuthority("ROLE_ADMIN")
                         .antMatchers(GET, "/api/homTraining/etudiant/**").permitAll()
                         .antMatchers("/v2/api-docs",
                                 "/configuration/ui",
